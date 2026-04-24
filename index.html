@@ -1,66 +1,546 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>[Your Name] | AI Engineer Portfolio</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Shreyash Naik — AI Engineer building production NLP, speech recognition, and full-stack AI systems. 4+ years of experience across healthcare, finance, and compliance." />
+  <meta name="author" content="Shreyash Naik" />
+  <meta name="theme-color" content="#0a0a0b" />
+
+  <meta property="og:title" content="Shreyash Naik — AI Engineer" />
+  <meta property="og:description" content="Production NLP, ASR, and full-stack AI systems. BERT, Whisper, Wav2Vec2, Phi-3, FastAPI, Angular, Docker." />
+  <meta property="og:type" content="website" />
+
+  <title>Shreyash Naik — AI Engineer</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <header>
-    <h1>[Your Name]</h1>
-    <h3>AI Engineer | NLP & Speech Recognition</h3>
+  <canvas id="bg-canvas" aria-hidden="true"></canvas>
+
+  <div class="noise" aria-hidden="true"></div>
+
+  <header class="site-header">
+    <a href="#top" class="brand" aria-label="Home">
+      <span class="brand-mark">SN</span>
+      <span class="brand-dot"></span>
+    </a>
+    <nav class="site-nav" aria-label="Primary">
+      <a href="#about">About</a>
+      <a href="#experience">Experience</a>
+      <a href="#work">Work</a>
+      <a href="#skills">Skills</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <a class="nav-cta" href="#contact">Get in touch <span aria-hidden="true">→</span></a>
+    <button class="nav-toggle" aria-label="Open menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
   </header>
 
-  <nav>
-    <ul>
-      <li><a href="#about">About Me</a></li>
-      <li><a href="#projects">Projects</a></li>
-      <li><a href="#skills">Skills</a></li>
-      <li><a href="#contact">Contact</a></li>
-    </ul>
-  </nav>
+  <main id="top">
+    <!-- HERO -->
+    <section class="hero">
+      <div class="hero-inner">
+        <p class="eyebrow reveal" data-reveal>
+          <span class="eyebrow-dot"></span>
+          Available for senior AI roles · Open to relocation
+        </p>
+        <h1 class="reveal" data-reveal data-reveal-delay="80">
+          <span class="hero-line">Shreyash Naik.</span>
+          <span class="hero-line hero-line-muted">AI Engineer shipping</span>
+          <span class="hero-line hero-line-accent">production ML systems.</span>
+        </h1>
+        <p class="hero-sub reveal" data-reveal data-reveal-delay="160">
+          4+ years designing, fine-tuning, and deploying large-scale NLP and
+          speech recognition pipelines — in production across healthcare,
+          finance, and global compliance. Now also architecting full-stack
+          enterprise AI products end-to-end.
+        </p>
 
-  <div class="container">
-    <section id="about" class="section">
-      <h2>About Me</h2>
-      <p>I am a passionate AI Engineer with [2.8 years] of experience specializing in Natural Language Processing (NLP) and Speech Recognition. I have a strong foundation in data preprocessing, model implementation, and evaluation techniques. I'm eager to leverage my skills to tackle challenging problems in the field of AI.</p>
+        <div class="hero-actions reveal" data-reveal data-reveal-delay="240">
+          <a class="btn btn-primary" href="#work">
+            See the work
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M1 7h12M8 2l5 5-5 5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+          <a class="btn btn-ghost" href="#contact">Contact</a>
+        </div>
+
+        <dl class="hero-stats reveal" data-reveal data-reveal-delay="320">
+          <div>
+            <dt>Years in production ML</dt>
+            <dd>4+</dd>
+          </div>
+          <div>
+            <dt>Regions served</dt>
+            <dd>US · EU · MENA · IN</dd>
+          </div>
+          <div>
+            <dt>Model families shipped</dt>
+            <dd>BERT · Whisper · Wav2Vec2 · Phi-3</dd>
+          </div>
+          <div>
+            <dt>Full-stack products delivered</dt>
+            <dd>3</dd>
+          </div>
+        </dl>
+      </div>
+
+      <a class="scroll-hint" href="#about" aria-label="Scroll to about">
+        <span></span>
+      </a>
     </section>
 
-    <section id="projects" class="section">
-      <h2>Projects</h2>
-      <div class="project">
-        <h3>Project Title</h3>
-        <p>Brief description of the project, highlighting your role and key achievements.</p>
-        <a href="#">Learn More (Optional: Link to project details or code)</a>
+    <!-- ABOUT -->
+    <section id="about" class="section">
+      <div class="section-grid">
+        <header class="section-head">
+          <span class="section-num">01</span>
+          <h2>About</h2>
+        </header>
+        <div class="section-body">
+          <p class="lead reveal" data-reveal>
+            I design and operate production AI systems — from data ingestion
+            and fine-tuning to containerized, multi-region inference serving.
+          </p>
+          <p class="reveal" data-reveal data-reveal-delay="80">
+            I spent my first four years at a boutique engineering services
+            company, owning the full ML pipeline for global clients in
+            healthcare, finance and compliance. I shipped domain-specific
+            BERT variants, Whisper and Wav2Vec2 speech pipelines, and
+            distilled/quantized Phi-3 deployments — in Dockerized CI/CD
+            environments across US, EU, MENA, and India.
+          </p>
+          <p class="reveal" data-reveal data-reveal-delay="160">
+            More recently I&rsquo;ve moved closer to the product edge: I now
+            act as the sole technical SPOC on an enterprise CRM/OSS/BSS
+            programme, and I&rsquo;ve independently architected and delivered
+            three internal enterprise SaaS applications — FastAPI + Angular
+            stacks with tamper-evident audit logs, AES-256 encryption, RBAC,
+            Elasticsearch search, and locally-running LLM features via
+            Ollama.
+          </p>
+          <p class="reveal" data-reveal data-reveal-delay="240">
+            I care about models that ship, numbers that hold up under real
+            load, and systems that operators can trust.
+          </p>
+        </div>
       </div>
     </section>
 
+    <!-- EXPERIENCE -->
+    <section id="experience" class="section">
+      <div class="section-grid">
+        <header class="section-head">
+          <span class="section-num">02</span>
+          <h2>Experience</h2>
+        </header>
+        <div class="section-body">
+          <ol class="timeline">
+            <li class="timeline-item reveal" data-reveal>
+              <div class="timeline-meta">
+                <span class="timeline-date">Jun 2025 &mdash; Present</span>
+                <span class="timeline-loc">Goa, India</span>
+              </div>
+              <div class="timeline-body">
+                <h3>Software Engineer &amp; Product SPOC</h3>
+                <p class="timeline-company">Ethernet Xpress</p>
+                <ul class="timeline-points">
+                  <li>Sole technical SPOC for an enterprise CRM / OSS / BSS initiative — authored the full requirements specification after aligning CEO and department heads, ran vendor selection, and now own delivery oversight, security review, and change management.</li>
+                  <li>Leading product definition for a SaaS residential-community management platform (vendor engagement in progress) and a step-wise customer-onboarding lead application.</li>
+                  <li>Independently designed and shipped three internal enterprise web applications (document management, HR recruitment, HR incident management) — driving architecture, data modelling, security design and AI integration while delegating implementation to AI coding agents.</li>
+                  <li>Cross-training on NOC / network operations to broaden the infrastructure skill set.</li>
+                </ul>
+              </div>
+            </li>
+
+            <li class="timeline-item timeline-item-slim reveal" data-reveal>
+              <div class="timeline-meta">
+                <span class="timeline-date">Nov 2024 &mdash; May 2025</span>
+              </div>
+              <div class="timeline-body">
+                <h3>Career break &middot; GATE preparation</h3>
+                <p class="timeline-company">Self-directed</p>
+                <p>Focused period preparing for the GATE (Graduate Aptitude Test in Engineering), deepening core CS fundamentals.</p>
+              </div>
+            </li>
+
+            <li class="timeline-item reveal" data-reveal>
+              <div class="timeline-meta">
+                <span class="timeline-date">Jun 2023 &mdash; Oct 2024</span>
+                <span class="timeline-loc">Goa, India</span>
+              </div>
+              <div class="timeline-body">
+                <h3>Artificial Intelligence Engineer</h3>
+                <p class="timeline-company">Trellissoft Engineering Services</p>
+                <ul class="timeline-points">
+                  <li>Designed and deployed NLP and ASR models (BERT, Wav2Vec2, Whisper, Phi-3) into production for global clients.</li>
+                  <li>Owned the full AI pipeline — data preprocessing, training, fine-tuning, evaluation and inference serving.</li>
+                  <li>Shipped containerized model services through Docker and CI/CD, maintaining high uptime across US, EU, MENA and India.</li>
+                  <li>Partnered with product and business teams to translate requirements into AI deliverables, with task-specific fine-tuning tuned against real KPIs.</li>
+                </ul>
+              </div>
+            </li>
+
+            <li class="timeline-item reveal" data-reveal>
+              <div class="timeline-meta">
+                <span class="timeline-date">Jun 2022 &mdash; Jun 2023</span>
+                <span class="timeline-loc">Goa, India</span>
+              </div>
+              <div class="timeline-body">
+                <h3>Software Engineer</h3>
+                <p class="timeline-company">Trellissoft Engineering Services</p>
+                <ul class="timeline-points">
+                  <li>Built multilingual NLP models, including a domain-specific Spanish BERT for classification and compliance tooling.</li>
+                  <li>Implemented memory-optimized training workflows and delivered ML-driven &ldquo;Propensity to Pay&rdquo; scoring engines.</li>
+                  <li>Researched OCR and speech recognition approaches; applied knowledge distillation to shrink models for constrained deployment targets.</li>
+                </ul>
+              </div>
+            </li>
+
+            <li class="timeline-item reveal" data-reveal>
+              <div class="timeline-meta">
+                <span class="timeline-date">Jun 2021 &mdash; Jun 2022</span>
+                <span class="timeline-loc">Goa, India</span>
+              </div>
+              <div class="timeline-body">
+                <h3>Junior Software Engineer <span class="tag">incl. 1-month internship</span></h3>
+                <p class="timeline-company">Trellissoft Engineering Services</p>
+                <ul class="timeline-points">
+                  <li>Contributed to QA and classification pipelines using BERT and custom embeddings.</li>
+                  <li>Fine-tuned speech and text models for healthcare applications (ICD-10, CPT codes) and integrated quantization for edge deployment.</li>
+                  <li>Built foundations in tokenization, language modelling and sentiment analysis during the internship.</li>
+                </ul>
+              </div>
+            </li>
+          </ol>
+        </div>
+      </div>
+    </section>
+
+    <!-- WORK / PROJECTS -->
+    <section id="work" class="section">
+      <div class="section-grid">
+        <header class="section-head">
+          <span class="section-num">03</span>
+          <h2>Selected work</h2>
+        </header>
+        <div class="section-body">
+          <p class="lead reveal" data-reveal>
+            Three enterprise products I architected, specified and shipped
+            end-to-end — driving design, data modelling and security while
+            using AI coding agents as my implementation team.
+          </p>
+
+          <article class="project-card reveal" data-reveal>
+            <header class="project-head">
+              <span class="project-index">P/01</span>
+              <h3>Enterprise document management platform</h3>
+              <p class="project-tagline">Subscription SaaS · tamper-evident records · dedicated isolated tenancy</p>
+            </header>
+            <p class="project-body">
+              A subscription enterprise document platform built for
+              organisations that need provable, tamper-evident records of
+              every document interaction. Tracks multi-department workflows
+              on a live visual tree, maintains a cryptographic audit trail,
+              and protects all data with AES-256 encryption at rest on a
+              dedicated isolated server — customer data is never
+              co-mingled with other tenants.
+            </p>
+            <p class="project-body">
+              Next on the roadmap: a locally-running, fine-tuned AI agent
+              embedded directly into the platform for document Q&amp;A and
+              workflow assistance — keeping inference fully on-premise.
+            </p>
+            <ul class="chip-list">
+              <li>Multi-department workflow tree</li>
+              <li>Cryptographic audit trail</li>
+              <li>AES-256 at rest</li>
+              <li>Dedicated isolated tenancy</li>
+              <li>Local LLM agent (planned)</li>
+            </ul>
+          </article>
+
+          <article class="project-card reveal" data-reveal>
+            <header class="project-head">
+              <span class="project-index">P/02</span>
+              <h3>Enterprise HR recruitment platform</h3>
+              <p class="project-tagline">Full recruitment lifecycle · 9-service Docker stack · LLM resume parsing</p>
+            </header>
+            <p class="project-body">
+              A production-ready, fully self-hosted HR platform covering the
+              complete recruitment lifecycle — from job creation through to
+              candidate onboarding. Delivered as a 9-service Docker
+              Compose stack with async I/O end-to-end and role-scoped
+              analytics for Admins, HODs and HR executives.
+            </p>
+            <div class="project-specs">
+              <div>
+                <h4>Backend</h4>
+                <p>Python 3.12 &middot; FastAPI (async) &middot; SQLAlchemy 2.0 &middot; 39 PostgreSQL 16 models &middot; 20+ REST modules &middot; Alembic migrations &middot; structured rotating logs</p>
+              </div>
+              <div>
+                <h4>Frontend</h4>
+                <p>Angular 17 SPA &middot; standalone components &middot; reactive Signals &middot; Tailwind &middot; global camelCase ↔ snake_case HTTP interceptor &middot; Cmd+K command palette</p>
+              </div>
+              <div>
+                <h4>Data &amp; search</h4>
+                <p>PostgreSQL 16 &middot; Redis &middot; Elasticsearch 8 full-text search across candidates, jobs &amp; applications, with a database fallback &middot; MinIO object storage</p>
+              </div>
+              <div>
+                <h4>Auth &amp; security</h4>
+                <p>Dynamic RBAC with 24 granular permission codes &middot; JWT access + refresh &middot; bcrypt hashing &middot; per-user permission cache in Redis</p>
+              </div>
+              <div>
+                <h4>Real-time &amp; async</h4>
+                <p>Socket.IO notifications and pipeline events &middot; Celery workers + Celery Beat on Redis broker for scheduled jobs</p>
+              </div>
+              <div>
+                <h4>AI &amp; comms</h4>
+                <p>Ollama LLM resume parsing with OCR fallback &middot; dual-channel SMTP (internal vs. candidate) &middot; {{variable}} template engine &middot; role-scoped analytics with ngx-echarts</p>
+              </div>
+            </div>
+            <ul class="chip-list">
+              <li>FastAPI</li><li>Angular 17 · Signals</li><li>PostgreSQL 16</li><li>Elasticsearch 8</li><li>Redis</li><li>Celery</li><li>Socket.IO</li><li>MinIO</li><li>Ollama</li><li>Docker Compose (9 services)</li>
+            </ul>
+          </article>
+
+          <article class="project-card reveal" data-reveal>
+            <header class="project-head">
+              <span class="project-index">P/03</span>
+              <h3>Multi-tenant HR incident management platform</h3>
+              <p class="project-tagline">Cryptographically tamper-evident audit trail · timeline canvas · field-level encryption</p>
+            </header>
+            <p class="project-body">
+              A multi-tenant enterprise HR platform for tracking employee
+              disciplinary events — warnings, complaints, suspensions and
+              terminations — on an interactive drag-and-drop timeline
+              canvas, backed by a SHA-256 hash-chained audit log that makes
+              any tampering detectable.
+            </p>
+            <div class="project-specs">
+              <div>
+                <h4>Backend</h4>
+                <p>FastAPI (Python 3.12) &middot; async SQLAlchemy 2.0 &middot; PostgreSQL 15 &middot; Redis 7 caching &middot; APScheduler for deadline reminders</p>
+              </div>
+              <div>
+                <h4>Frontend</h4>
+                <p>Angular 17 standalone components &middot; TypeScript &middot; Bootstrap 5 &middot; Axios &middot; lazy-loaded routes &middot; dark mode &middot; configurable branding</p>
+              </div>
+              <div>
+                <h4>Security</h4>
+                <p>JWT (15-min access + 7-day httpOnly refresh) &middot; bcrypt &middot; AES-256-GCM file encryption &middot; Fernet field encryption &middot; SHA-256 hash-chained audit log &middot; rate limiting &middot; RBAC with 11 granular permissions</p>
+              </div>
+              <div>
+                <h4>Infrastructure</h4>
+                <p>Docker Compose (Nginx reverse proxy, PostgreSQL, Redis, FastAPI, Angular) &middot; Gzip &middot; async file I/O via tmpfs RAM buffer &middot; TLS via Let&rsquo;s Encrypt</p>
+              </div>
+              <div>
+                <h4>Product</h4>
+                <p>Multi-company tenancy &middot; RBAC &middot; soft-delete recycle bin &middot; in-app notifications with deadline alerts &middot; PDF/DOCX uploads &middot; user &amp; employee analytics &middot; filterable immutable audit log</p>
+              </div>
+            </div>
+            <ul class="chip-list">
+              <li>FastAPI</li><li>SQLAlchemy 2.0 (async)</li><li>PostgreSQL 15</li><li>Redis 7</li><li>AES-256-GCM</li><li>Fernet</li><li>SHA-256 hash chain</li><li>Angular 17</li><li>Docker Compose</li>
+            </ul>
+          </article>
+
+          <aside class="project-note reveal" data-reveal>
+            <strong>A note on authorship.</strong>
+            I own the architecture, data model, security design and AI
+            integration on each of these products. Implementation was
+            delegated to AI coding agents under my direction — the systems
+            and their production behaviour are entirely my responsibility,
+            and all three are in daily use inside the business.
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <!-- SKILLS -->
     <section id="skills" class="section">
-      <h2>Skills</h2>
-      <ul class="skills-list">
-        <li>Python</li>
-        <li>TensorFlow/PyTorch</li>
-        <li>Data Preprocessing & Feature Engineering</li>
-        <li>NLP Models (LSTMs, Transformers)</li>
-        <li>Model Evaluation Metrics</li>
-      </ul>
+      <div class="section-grid">
+        <header class="section-head">
+          <span class="section-num">04</span>
+          <h2>Skills</h2>
+        </header>
+        <div class="section-body">
+          <div class="skill-grid">
+            <div class="skill-group reveal" data-reveal>
+              <h3>Languages</h3>
+              <ul>
+                <li>Python</li>
+                <li>Bash</li>
+                <li>TypeScript</li>
+                <li>SQL</li>
+              </ul>
+            </div>
+            <div class="skill-group reveal" data-reveal data-reveal-delay="60">
+              <h3>ML frameworks</h3>
+              <ul>
+                <li>PyTorch</li>
+                <li>Hugging Face Transformers</li>
+                <li>LSTM / GRU / Attention</li>
+                <li>Knowledge distillation</li>
+                <li>Quantization</li>
+              </ul>
+            </div>
+            <div class="skill-group reveal" data-reveal data-reveal-delay="120">
+              <h3>NLP &amp; speech models</h3>
+              <ul>
+                <li>BERT (multilingual, domain-specific)</li>
+                <li>Whisper</li>
+                <li>Wav2Vec2</li>
+                <li>Phi-3</li>
+                <li>Ollama (local LLM serving)</li>
+              </ul>
+            </div>
+            <div class="skill-group reveal" data-reveal data-reveal-delay="180">
+              <h3>Backend &amp; data</h3>
+              <ul>
+                <li>FastAPI (async)</li>
+                <li>SQLAlchemy 2.0</li>
+                <li>Celery &middot; APScheduler</li>
+                <li>PostgreSQL &middot; Redis</li>
+                <li>Elasticsearch &middot; MinIO</li>
+              </ul>
+            </div>
+            <div class="skill-group reveal" data-reveal data-reveal-delay="240">
+              <h3>Frontend</h3>
+              <ul>
+                <li>Angular 17 (standalone, Signals)</li>
+                <li>TypeScript</li>
+                <li>Tailwind CSS &middot; Bootstrap</li>
+                <li>Socket.IO client</li>
+                <li>ngx-echarts</li>
+              </ul>
+            </div>
+            <div class="skill-group reveal" data-reveal data-reveal-delay="300">
+              <h3>Platform &amp; DevOps</h3>
+              <ul>
+                <li>Docker &middot; Docker Compose</li>
+                <li>CI/CD pipelines</li>
+                <li>Nginx &middot; TLS (Let&rsquo;s Encrypt)</li>
+                <li>Git &middot; Unix CLI</li>
+                <li>Multi-region deployment</li>
+              </ul>
+            </div>
+            <div class="skill-group reveal" data-reveal data-reveal-delay="360">
+              <h3>Security</h3>
+              <ul>
+                <li>JWT (access / refresh)</li>
+                <li>bcrypt &middot; RBAC</li>
+                <li>AES-256-GCM &middot; Fernet</li>
+                <li>SHA-256 hash-chained audit logs</li>
+                <li>Rate limiting</li>
+              </ul>
+            </div>
+            <div class="skill-group reveal" data-reveal data-reveal-delay="420">
+              <h3>Focus areas</h3>
+              <ul>
+                <li>Natural language processing</li>
+                <li>Speech recognition</li>
+                <li>Compliance &amp; medical NLP</li>
+                <li>Multilingual AI</li>
+                <li>Enterprise SaaS architecture</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
     </section>
 
-    <section id="contact" class="section">
-      <h2>Contact</h2>
-      <p>Feel free to reach out for any inquiries or collaborations.</p>
-      <ul class="contact-info">
-        <li><a href="mailto:[your email]">Email</a></li>
-        <li><a href="[your LinkedIn profile URL]">LinkedIn</a></li>
-      </ul>
+    <!-- EDUCATION + ACHIEVEMENTS -->
+    <section id="credentials" class="section">
+      <div class="section-grid">
+        <header class="section-head">
+          <span class="section-num">05</span>
+          <h2>Credentials</h2>
+        </header>
+        <div class="section-body credentials-body">
+          <div class="cred-column reveal" data-reveal>
+            <h3>Education</h3>
+            <div class="cred-item">
+              <p class="cred-title">Bachelor&rsquo;s degree</p>
+              <p class="cred-sub">Don Bosco College of Engineering · Goa University</p>
+              <p class="cred-date">2021</p>
+            </div>
+          </div>
+          <div class="cred-column reveal" data-reveal data-reveal-delay="80">
+            <h3>Professional development</h3>
+            <div class="cred-item">
+              <p class="cred-title">NLP Specialization (4 sub-courses)</p>
+              <p class="cred-sub">Coursera</p>
+              <p class="cred-date">2021</p>
+            </div>
+            <div class="cred-item">
+              <p class="cred-title">Machine Learning Specialization</p>
+              <p class="cred-sub">DeepLearning.AI</p>
+              <p class="cred-date">2021</p>
+            </div>
+          </div>
+          <div class="cred-column reveal" data-reveal data-reveal-delay="160">
+            <h3>Recognition</h3>
+            <div class="cred-item">
+              <p class="cred-title">Fast &amp; Furious Coder</p>
+              <p class="cred-sub">Trellissoft Engineering Services</p>
+              <p class="cred-date">2024</p>
+            </div>
+            <div class="cred-item">
+              <p class="cred-title">Employee of Q2 · Star Player of the Team</p>
+              <p class="cred-sub">Trellissoft Engineering Services</p>
+              <p class="cred-date">2022</p>
+            </div>
+          </div>
+        </div>
+      </div>
     </section>
-  </div>
 
-  <footer>
-    &copy; 2024 [Your Name] | AI Engineer Portfolio
+    <!-- CONTACT -->
+    <section id="contact" class="section section-contact">
+      <div class="contact-inner">
+        <p class="eyebrow reveal" data-reveal><span class="eyebrow-dot"></span>Contact</p>
+        <h2 class="reveal" data-reveal data-reveal-delay="80">Let&rsquo;s build something that ships.</h2>
+        <p class="contact-lead reveal" data-reveal data-reveal-delay="160">
+          I&rsquo;m open to senior AI / ML engineer roles at teams that care
+          about shipping models to real users. If you&rsquo;re hiring, the
+          fastest route is email.
+        </p>
+
+        <a class="contact-email reveal" data-reveal data-reveal-delay="240" href="mailto:Shreyash@gmail.com">
+          Shreyash@gmail.com
+          <svg width="18" height="18" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M1 7h12M8 2l5 5-5 5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+
+        <ul class="contact-list reveal" data-reveal data-reveal-delay="320">
+          <li>
+            <span class="contact-label">LinkedIn</span>
+            <a href="https://www.linkedin.com/in/shreyash/" target="_blank" rel="noopener noreferrer">linkedin.com/in/shreyash</a>
+          </li>
+          <li>
+            <span class="contact-label">Phone</span>
+            <a href="tel:+918888888888">+91&nbsp;88888&nbsp;88888</a>
+          </li>
+          <li>
+            <span class="contact-label">Location</span>
+            <span>Goa, India &middot; open to relocation</span>
+          </li>
+        </ul>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <p>&copy; <span id="year">2026</span> Shreyash Naik</p>
+      <p class="footer-meta">Designed &amp; built from scratch &middot; shipped as static HTML/CSS/JS</p>
+    </div>
   </footer>
 
-  <script src="script.js"></script>
+  <script src="script.js" defer></script>
 </body>
 </html>
