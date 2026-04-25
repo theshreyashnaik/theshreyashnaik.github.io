@@ -336,204 +336,6 @@
   }
 
   /* ============================================================
-     AI CHAT WIDGET
-     Keyword-matched, streamed character-by-character. No network.
-     ============================================================ */
-  const aiWidget = document.getElementById("ai-widget");
-  const aiFab    = document.getElementById("ai-fab");
-  const aiPanel  = document.getElementById("ai-panel");
-  const aiClose  = document.getElementById("ai-panel-close");
-  const aiChat   = document.getElementById("ai-chat");
-  const aiForm   = document.getElementById("ai-form");
-  const aiInput  = document.getElementById("ai-input");
-  const aiSugg   = document.getElementById("ai-suggestions");
-
-  if (aiWidget && aiFab && aiPanel && aiChat && aiForm && aiInput) {
-    const KB = [
-      {
-        k: ["hi", "hello", "hey", "yo"],
-        a: "Hey 👋  I'm a small client-side demo that knows Shreyash's resume. Try asking about his <strong>models</strong>, <strong>current role</strong>, <strong>stack</strong> or <strong>projects</strong>.",
-      },
-      {
-        k: ["model", "models", "ml", "bert", "whisper", "wav2vec", "phi", "llm", "nlp"],
-        a: "In production he's shipped <strong>BERT</strong> (incl. a domain-specific Spanish BERT for compliance), <strong>Whisper</strong> and <strong>Wav2Vec2</strong> for ASR, and <strong>Phi-3</strong> deployments with knowledge distillation and quantization. Plus local LLM work via <strong>Ollama</strong> for in-app AI.",
-      },
-      {
-        k: ["speech", "asr", "audio", "voice"],
-        a: "Speech is a core strength: production pipelines built on <strong>Whisper</strong> and <strong>Wav2Vec2</strong>, fine-tuned for healthcare (ICD-10 / CPT coding) and multilingual workflows, with quantization for edge deployment.",
-      },
-      {
-        k: ["current", "now", "ethernet", "spoc", "role", "today", "recent"],
-        a: "Currently at <strong>Ethernet Xpress</strong> (Goa, since Jun 2025). He's the sole technical SPOC on an enterprise CRM / OSS / BSS programme — authored the full requirements spec, ran vendor selection and now owns delivery, security review, and change management. He also architected and shipped three internal enterprise SaaS products.",
-      },
-      {
-        k: ["trellissoft", "previous", "past", "before"],
-        a: "Before that, 3.4 years at <strong>Trellissoft Engineering Services</strong> — Jr. SWE → SWE → AI Engineer. Owned full ML pipelines for global clients (US, EU, MENA, India) in healthcare, finance and compliance.",
-      },
-      {
-        k: ["experience", "years", "how long", "yoe", "seniority"],
-        a: "<strong>4+ years</strong> in production ML. 3.4 years at Trellissoft (Jun 2021 – Oct 2024), a focused break for GATE prep (Nov 2024 – May 2025), then Ethernet Xpress from Jun 2025 onwards.",
-      },
-      {
-        k: ["break", "gap", "gate", "career break"],
-        a: "Between Oct 2024 and May 2025 he took a deliberate break to prepare for <strong>GATE</strong> (Graduate Aptitude Test in Engineering) — deepening core CS fundamentals. It's on the timeline, no hiding.",
-      },
-      {
-        k: ["stack", "tech", "tools", "framework", "languages"],
-        a: "<strong>Python</strong> + <strong>PyTorch</strong> + <strong>Hugging Face</strong> for ML. <strong>FastAPI</strong> (async) + <strong>SQLAlchemy 2.0</strong> + <strong>PostgreSQL</strong> + <strong>Redis</strong> + <strong>Elasticsearch 8</strong> + <strong>Celery</strong> + <strong>MinIO</strong> for backends. <strong>Angular 17</strong> (standalone, Signals) + <strong>Tailwind</strong> on the front end. Ships on <strong>Docker Compose</strong> behind <strong>Nginx</strong>.",
-      },
-      {
-        k: ["project", "projects", "work", "built", "shipped", "full-stack", "fullstack"],
-        a: "Three enterprise SaaS products, architected and shipped end-to-end:<br>• <strong>Document management</strong> — tamper-evident, multi-dept workflow tree, AES-256, isolated-tenancy.<br>• <strong>HR recruitment</strong> — 9-service Docker stack, Elasticsearch, Socket.IO, Ollama resume parsing.<br>• <strong>HR incident management</strong> — SHA-256 hash-chained audit log, AES-256-GCM + Fernet, multi-tenant.",
-      },
-      {
-        k: ["document", "dms"],
-        a: "The document management platform is a subscription SaaS with provable, tamper-evident records, a live visual multi-department workflow tree, cryptographic audit trail, and AES-256 at rest on a <strong>dedicated isolated server</strong> per tenant. Next: an embedded, locally-running fine-tuned AI agent for on-prem document Q&amp;A.",
-      },
-      {
-        k: ["hr", "recruitment", "staff", "incident"],
-        a: "Two HR products: a recruitment platform (FastAPI + Angular 17 + Elasticsearch + Celery + Ollama resume parsing, 9 Docker services) and a multi-tenant incident management platform with a SHA-256 hash-chained, tamper-detectable audit log and AES-256-GCM file encryption.",
-      },
-      {
-        k: ["security", "encryption", "crypto", "audit"],
-        a: "Security is first-class: <strong>JWT</strong> (15-min access + 7-day httpOnly refresh), <strong>bcrypt</strong>, <strong>AES-256-GCM</strong> file encryption, <strong>Fernet</strong> field encryption, <strong>SHA-256</strong> hash-chained tamper-detectable audit logs, RBAC with fine-grained permissions, rate limiting, TLS via Let's Encrypt.",
-      },
-      {
-        k: ["docker", "devops", "deploy", "infra", "ci", "cd"],
-        a: "Ships Dockerized model services via CI/CD, multi-region (US, EU, MENA, India). Full-stack products run on Docker Compose stacks behind Nginx with Alembic migrations and structured rotating logs.",
-      },
-      {
-        k: ["contact", "email", "reach", "hire", "phone"],
-        a: "Best route is email: <strong>Shreyash@gmail.com</strong>. LinkedIn at <strong>linkedin.com/in/shreyash</strong>. Based in Goa, open to relocation.",
-      },
-      {
-        k: ["location", "where", "goa", "india", "relocate"],
-        a: "Based in <strong>Goa, India</strong>, open to relocation globally.",
-      },
-      {
-        k: ["education", "degree", "college", "university"],
-        a: "Bachelor's from <strong>Don Bosco College of Engineering</strong>, Goa University (2021). Also completed the Coursera NLP Specialization (4 courses) and DeepLearning.AI's ML Specialization the same year.",
-      },
-      {
-        k: ["award", "achievement", "recognition"],
-        a: "Fast &amp; Furious Coder (2024). Employee of Q2 · Star Player of the Team (2022). Both at Trellissoft.",
-      },
-      {
-        k: ["ai coding", "ai agent", "cursor", "copilot", "how", "build"],
-        a: "For full-stack products he owns architecture, data modelling, security design and AI integration — and delegates implementation to AI coding agents. The systems are entirely his responsibility and are all in daily production use inside the business.",
-      },
-      {
-        k: ["thanks", "thank"],
-        a: "Anytime. For a real conversation, email him at <strong>Shreyash@gmail.com</strong>.",
-      },
-    ];
-
-    const FALLBACK = "I'm a keyword-matched demo so I don't have a great answer for that. Try <em>models</em>, <em>current role</em>, <em>stack</em>, <em>projects</em>, or <em>contact</em>.";
-
-    const answer = (q) => {
-      const s = q.toLowerCase();
-      let best = null, bestScore = 0;
-      for (const row of KB) {
-        const score = row.k.reduce((acc, kw) => acc + (s.includes(kw) ? kw.length : 0), 0);
-        if (score > bestScore) { best = row; bestScore = score; }
-      }
-      return best ? best.a : FALLBACK;
-    };
-
-    const scrollChat = () => { aiChat.scrollTop = aiChat.scrollHeight; };
-
-    const addMsg = (html, who = "bot") => {
-      const el = document.createElement("div");
-      el.className = `ai-msg ai-msg-${who}`;
-      el.innerHTML = html;
-      aiChat.appendChild(el);
-      scrollChat();
-      return el;
-    };
-
-    const stream = (el, html, speed = 14) => {
-      return new Promise(resolve => {
-        // Parse HTML to a list of text/tag tokens so we can type text gradually
-        // while preserving tags.
-        const tmp = document.createElement("div");
-        tmp.innerHTML = html;
-        const fullText = tmp.innerHTML;
-        el.innerHTML = '<span class="cursor"></span>';
-        const cursor = el.querySelector(".cursor");
-
-        let i = 0;
-        let buf = "";
-        const tick = () => {
-          // Advance past a full tag in one step, else one character
-          if (fullText[i] === "<") {
-            const end = fullText.indexOf(">", i);
-            if (end !== -1) {
-              buf += fullText.slice(i, end + 1);
-              i = end + 1;
-            } else {
-              buf += fullText[i++];
-            }
-          } else {
-            buf += fullText[i++];
-          }
-          el.innerHTML = buf + '<span class="cursor"></span>';
-          scrollChat();
-          if (i < fullText.length) {
-            setTimeout(tick, speed + Math.random() * 10);
-          } else {
-            const c = el.querySelector(".cursor");
-            if (c) c.remove();
-            resolve();
-          }
-        };
-        tick();
-      });
-    };
-
-    const ask = async (q) => {
-      if (!q.trim()) return;
-      addMsg(escapeHTML(q), "user");
-      const botEl = addMsg("", "bot");
-      await new Promise(r => setTimeout(r, 280));
-      await stream(botEl, answer(q), prefersReducedMotion ? 0 : 14);
-    };
-
-    const escapeHTML = (s) => s.replace(/[&<>"']/g, c => ({
-      "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;",
-    }[c]));
-
-    // Open / close
-    const setOpen = (open) => {
-      aiWidget.setAttribute("data-open", String(open));
-      aiPanel.hidden = !open;
-      aiFab.setAttribute("aria-expanded", String(open));
-      if (open) {
-        if (!aiChat.childElementCount) {
-          addMsg("Hi — I'm a tiny client-side assistant that knows Shreyash's resume. Ask me about his <strong>models</strong>, <strong>stack</strong>, or <strong>projects</strong>. For real conversations, email him at <strong>Shreyash@gmail.com</strong>.", "bot");
-        }
-        setTimeout(() => aiInput.focus(), 60);
-      }
-    };
-
-    aiFab.addEventListener("click", () => setOpen(true));
-    aiClose?.addEventListener("click", () => setOpen(false));
-    document.addEventListener("keydown", (e) => {
-      if (e.key === "Escape" && aiWidget.getAttribute("data-open") === "true") setOpen(false);
-    });
-
-    aiForm.addEventListener("submit", (e) => {
-      e.preventDefault();
-      const q = aiInput.value;
-      aiInput.value = "";
-      ask(q);
-    });
-
-    aiSugg?.querySelectorAll("button[data-q]").forEach(b => {
-      b.addEventListener("click", () => ask(b.dataset.q));
-    });
-  }
-
-  /* ============================================================
      HERO TELEMETRY — synthetic but plausible inference metrics.
      Values jitter inside SLO bands typical of an edge inference
      deployment: p50 ~70 ms, p99 ~180 ms, ~120 rps, ~55% GPU util.
@@ -1168,8 +970,9 @@
       { g: "Section",  n: "Experience",              h: "02 · timeline",                          a: () => go("#experience") },
       { g: "Section",  n: "Live ML lab",             h: "03 · in-browser demos",                  a: () => go("#playground") },
       { g: "Section",  n: "Selected work",           h: "04 · shipped products",                  a: () => go("#work") },
-      { g: "Section",  n: "Skills",                  h: "05 · stack",                             a: () => go("#skills") },
-      { g: "Section",  n: "Credentials",             h: "06 · education + recognition",           a: () => go("#credentials") },
+      { g: "Section",  n: "Case study",              h: "05 · HR recruitment teardown",           a: () => go("#case-study") },
+      { g: "Section",  n: "Skills",                  h: "06 · stack",                             a: () => go("#skills") },
+      { g: "Section",  n: "Credentials",             h: "07 · education + recognition",           a: () => go("#credentials") },
       { g: "Section",  n: "Contact",                 h: "email · LinkedIn · phone",               a: () => go("#contact") },
       // Demos
       { g: "Lab demo", n: "Tokenizer",               h: "word · sub-word · char",                 a: () => goLab("tok") },
@@ -1194,10 +997,10 @@
       { g: "Skill",    n: "Docker · CI/CD · Nginx",  h: "platform",                               a: () => go("#skills") },
       { g: "Skill",    n: "AES-256 · JWT · RBAC · audit logs", h: "security",                     a: () => go("#skills") },
       // Actions
+      { g: "Action",   n: "Download CV (PDF)",       h: "one-page resume",                        a: () => { const a = document.createElement("a"); a.href = "assets/Shreyash_Naik_Resume.pdf"; a.download = ""; document.body.appendChild(a); a.click(); a.remove(); } },
       { g: "Action",   n: "Email Shreyash",          h: "Shreyash@gmail.com",                     a: () => location.href = "mailto:Shreyash@gmail.com" },
       { g: "Action",   n: "Open LinkedIn",           h: "linkedin.com/in/shreyash",               a: () => window.open("https://www.linkedin.com/in/shreyash/", "_blank", "noopener") },
       { g: "Action",   n: "Toggle theme",            h: "dark ↔ light",                           a: () => document.getElementById("theme-toggle")?.click() },
-      { g: "Action",   n: "Open AI assistant",       h: "client-side chat",                       a: () => document.getElementById("ai-fab")?.click() },
     ];
 
     const ICON = {
