@@ -37,6 +37,14 @@
       <a href="#skills">Skills</a>
       <a href="#contact">Contact</a>
     </nav>
+    <button class="cmdk-trigger" id="cmdk-trigger" type="button" aria-label="Open command palette">
+      <svg width="13" height="13" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+        <circle cx="7" cy="7" r="5" stroke="currentColor" stroke-width="1.5"/>
+        <path d="M11 11l3 3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+      </svg>
+      <span>Search</span>
+      <span class="cmdk-trigger-keys"><kbd>⌘</kbd><kbd>K</kbd></span>
+    </button>
     <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme" aria-pressed="false" type="button">
       <svg class="icon-moon" width="16" height="16" viewBox="0 0 20 20" fill="none" aria-hidden="true">
         <path d="M17 11.5A7 7 0 0 1 8.5 3a7 7 0 1 0 8.5 8.5Z" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
@@ -58,7 +66,7 @@
       <div class="hero-inner">
         <p class="eyebrow reveal" data-reveal>
           <span class="eyebrow-dot"></span>
-          Available for senior AI roles · Open to relocation
+          Senior AI Engineer · Production NLP &amp; ASR · Open to relocation
         </p>
         <h1 class="reveal" data-reveal data-reveal-delay="80">
           <span class="hero-line">Shreyash Naik.</span>
@@ -98,6 +106,44 @@
             <dd>3</dd>
           </div>
         </dl>
+
+        <!-- Live telemetry strip -->
+        <div class="telemetry reveal" data-reveal data-reveal-delay="400" aria-hidden="true">
+          <div class="telemetry-head">
+            <span class="telemetry-pill">
+              <span class="telemetry-dot"></span>
+              inference · <span class="telemetry-status">healthy</span>
+            </span>
+            <span class="telemetry-region">edge-bom-1 · edge-fra-2 · edge-iad-1</span>
+          </div>
+          <div class="telemetry-grid">
+            <div class="telemetry-cell">
+              <span class="telemetry-label">p50 latency</span>
+              <span class="telemetry-value" data-metric="p50">— ms</span>
+              <span class="telemetry-spark" data-spark="p50"></span>
+            </div>
+            <div class="telemetry-cell">
+              <span class="telemetry-label">p99 latency</span>
+              <span class="telemetry-value" data-metric="p99">— ms</span>
+              <span class="telemetry-spark" data-spark="p99"></span>
+            </div>
+            <div class="telemetry-cell">
+              <span class="telemetry-label">throughput</span>
+              <span class="telemetry-value" data-metric="qps">— rps</span>
+              <span class="telemetry-spark" data-spark="qps"></span>
+            </div>
+            <div class="telemetry-cell">
+              <span class="telemetry-label">gpu util</span>
+              <span class="telemetry-value" data-metric="gpu">— %</span>
+              <span class="telemetry-spark" data-spark="gpu"></span>
+            </div>
+          </div>
+          <p class="telemetry-foot">
+            Synthetic readout · pattern matches the SLOs I design production
+            inference against (sub-200&nbsp;ms p99, ≥&nbsp;99.9% availability).
+            Press <kbd>⌘</kbd><kbd>K</kbd> for the command palette.
+          </p>
+        </div>
       </div>
 
       <a class="scroll-hint" href="#about" aria-label="Scroll to about">
@@ -237,18 +283,38 @@
       <div class="section-grid">
         <header class="section-head">
           <span class="section-num">03</span>
-          <h2>In-browser AI</h2>
+          <h2>Live ML lab</h2>
         </header>
         <div class="section-body">
           <p class="lead reveal" data-reveal>
-            A designer&rsquo;s portfolio should feel designed. An AI
-            engineer&rsquo;s portfolio should feel intelligent. So this
-            page ships with a small, fully client-side NLP demo and a
-            chat assistant &mdash; zero backend, zero network calls.
+            An AI engineer&rsquo;s portfolio should feel intelligent. So this
+            page ships four working ML demos in your browser &mdash; a
+            tokenizer, a 2D embedding projector, an attention heatmap, and an
+            inference economics curve. Zero backend, zero network calls,
+            entirely deterministic.
           </p>
 
-          <!-- Tokenizer demo -->
-          <div class="demo demo-tok reveal" data-reveal>
+          <nav class="lab-tabs reveal" data-reveal role="tablist" aria-label="Lab demos">
+            <button type="button" role="tab" aria-selected="true" data-lab-tab="tok" class="is-active">
+              <span class="lab-tab-num">01</span>
+              <span class="lab-tab-name">Tokenizer</span>
+            </button>
+            <button type="button" role="tab" aria-selected="false" data-lab-tab="emb">
+              <span class="lab-tab-num">02</span>
+              <span class="lab-tab-name">Embeddings</span>
+            </button>
+            <button type="button" role="tab" aria-selected="false" data-lab-tab="att">
+              <span class="lab-tab-num">03</span>
+              <span class="lab-tab-name">Attention</span>
+            </button>
+            <button type="button" role="tab" aria-selected="false" data-lab-tab="lat">
+              <span class="lab-tab-num">04</span>
+              <span class="lab-tab-name">Inference economics</span>
+            </button>
+          </nav>
+
+          <!-- ============== TOKENIZER ============== -->
+          <div class="demo demo-tok reveal" data-lab-panel="tok" data-reveal>
             <header class="demo-head">
               <div>
                 <span class="demo-label">Demo · Tokenizer</span>
@@ -280,7 +346,114 @@
               <strong>Sub-word</strong> mimics the BPE-style segmentation used
               by modern transformers (BERT / GPT / Phi), breaking rare words
               into ##pieces. <strong>Char</strong> is the raw character stream.
-              Everything runs locally in your browser.
+              Token count is what you actually pay for at inference time.
+            </p>
+          </div>
+
+          <!-- ============== EMBEDDINGS ============== -->
+          <div class="demo demo-emb reveal" data-lab-panel="emb" data-reveal hidden>
+            <header class="demo-head">
+              <div>
+                <span class="demo-label">Demo · Semantic space</span>
+                <h3>Words cluster by meaning, not spelling.</h3>
+              </div>
+              <div class="emb-legend" role="group" aria-label="Cluster legend">
+                <span data-cluster="ml"><i></i>ML core</span>
+                <span data-cluster="speech"><i></i>Speech</span>
+                <span data-cluster="infra"><i></i>Infra</span>
+                <span data-cluster="sec"><i></i>Security</span>
+              </div>
+            </header>
+
+            <div class="emb-stage">
+              <svg id="emb-svg" viewBox="-1 -1 2 2" preserveAspectRatio="xMidYMid meet" aria-label="2D embedding projection"></svg>
+              <aside class="emb-panel" id="emb-panel">
+                <p class="emb-panel-hint">Hover or tap a token. The five
+                  nearest neighbours (cosine distance in the projected 2D
+                  space) light up.</p>
+                <div class="emb-panel-detail" id="emb-detail" hidden>
+                  <h4 id="emb-word">—</h4>
+                  <p class="emb-coord" id="emb-coord">—</p>
+                  <ol class="emb-neighbors" id="emb-neighbors"></ol>
+                </div>
+              </aside>
+            </div>
+
+            <p class="demo-note">
+              Real embeddings live in 384&ndash;1536 dimensions; this is a
+              hand-projected 2D slice of an embedding space I curated for
+              this site. Same idea: tokens that play similar roles in the
+              corpus end up geometrically close.
+            </p>
+          </div>
+
+          <!-- ============== ATTENTION ============== -->
+          <div class="demo demo-att reveal" data-lab-panel="att" data-reveal hidden>
+            <header class="demo-head">
+              <div>
+                <span class="demo-label">Demo · Self-attention</span>
+                <h3>Where each token looks when it predicts the next one.</h3>
+              </div>
+              <div class="demo-mode att-head" role="tablist" aria-label="Attention head">
+                <span class="att-head-label">Head</span>
+                <button type="button" role="tab" aria-selected="true" data-att-head="0" class="is-active">syntax</button>
+                <button type="button" role="tab" aria-selected="false" data-att-head="1">coref</button>
+                <button type="button" role="tab" aria-selected="false" data-att-head="2">topic</button>
+              </div>
+            </header>
+
+            <label class="demo-field">
+              <span class="sr-only">Sentence</span>
+              <input id="att-input" type="text" spellcheck="false" autocomplete="off" value="The model reads each token in parallel and predicts the next." />
+            </label>
+
+            <div class="att-stage">
+              <div class="att-grid" id="att-grid" role="img" aria-label="Attention weight matrix"></div>
+              <p class="att-explain" id="att-explain"></p>
+            </div>
+
+            <p class="demo-note">
+              Attention weights here are computed deterministically from
+              token role and distance &mdash; not from a real transformer
+              forward pass &mdash; but they reproduce the behaviour you
+              actually see in trained heads: <strong>syntax</strong> heads
+              attend locally, <strong>coreference</strong> heads link
+              pronouns to their antecedents, <strong>topic</strong> heads
+              concentrate on content nouns.
+            </p>
+          </div>
+
+          <!-- ============== LATENCY / ECONOMICS ============== -->
+          <div class="demo demo-lat reveal" data-lab-panel="lat" data-reveal hidden>
+            <header class="demo-head">
+              <div>
+                <span class="demo-label">Demo · Inference economics</span>
+                <h3>Pick a point on the latency&ndash;accuracy frontier.</h3>
+              </div>
+              <div class="lat-budget">
+                <label for="lat-budget">Latency budget
+                  <span id="lat-budget-val">300</span>&nbsp;ms</label>
+                <input type="range" id="lat-budget" min="40" max="1600" step="10" value="300" />
+              </div>
+            </header>
+
+            <div class="lat-stage">
+              <svg id="lat-svg" viewBox="0 0 600 320" preserveAspectRatio="none" aria-label="Latency vs accuracy chart"></svg>
+            </div>
+
+            <dl class="demo-stats lat-stats">
+              <div><dt>Best fit</dt><dd id="lat-best">—</dd></div>
+              <div><dt>Latency</dt><dd id="lat-ms">— ms</dd></div>
+              <div><dt>WER (lower is better)</dt><dd id="lat-wer">— %</dd></div>
+              <div><dt>Cost / 1k req</dt><dd id="lat-cost">— ¢</dd></div>
+            </dl>
+
+            <p class="demo-note">
+              Numbers reflect the kind of trade space I navigate when picking
+              an ASR backbone &mdash; Whisper variants, distilled / quantized
+              builds, edge-deployable tinies. The highlighted point
+              (<strong>Distilled · INT8</strong>) is the spot I aim for: most
+              of the accuracy at a fraction of the latency.
             </p>
           </div>
         </div>
@@ -369,6 +542,32 @@
                 <p>Ollama LLM resume parsing with OCR fallback &middot; dual-channel SMTP (internal vs. candidate) &middot; {{variable}} template engine &middot; role-scoped analytics with ngx-echarts</p>
               </div>
             </div>
+            <figure class="arch-figure" aria-label="System architecture">
+              <figcaption>Runtime topology &mdash; 9-service Docker Compose</figcaption>
+              <div class="arch-diagram">
+                <div class="arch-row arch-row-edge">
+                  <span class="arch-node arch-edge">Nginx · TLS</span>
+                </div>
+                <div class="arch-row">
+                  <span class="arch-node arch-app">Angular 17 SPA</span>
+                  <span class="arch-arrow">→</span>
+                  <span class="arch-node arch-app">FastAPI · async</span>
+                  <span class="arch-arrow">⇄</span>
+                  <span class="arch-node arch-app">Socket.IO</span>
+                </div>
+                <div class="arch-row">
+                  <span class="arch-node arch-data">PostgreSQL 16</span>
+                  <span class="arch-node arch-data">Redis</span>
+                  <span class="arch-node arch-data">Elasticsearch 8</span>
+                  <span class="arch-node arch-data">MinIO (S3)</span>
+                </div>
+                <div class="arch-row">
+                  <span class="arch-node arch-worker">Celery worker</span>
+                  <span class="arch-node arch-worker">Celery Beat</span>
+                  <span class="arch-node arch-ml">Ollama · resume LLM</span>
+                </div>
+              </div>
+            </figure>
             <ul class="chip-list">
               <li>FastAPI</li><li>Angular 17 · Signals</li><li>PostgreSQL 16</li><li>Elasticsearch 8</li><li>Redis</li><li>Celery</li><li>Socket.IO</li><li>MinIO</li><li>Ollama</li><li>Docker Compose (9 services)</li>
             </ul>
@@ -598,6 +797,27 @@
       </div>
     </section>
   </main>
+
+  <!-- Command palette ⌘K -->
+  <div class="cmdk" id="cmdk" hidden>
+    <div class="cmdk-backdrop" data-cmdk-close></div>
+    <div class="cmdk-panel" role="dialog" aria-label="Command palette" aria-modal="true">
+      <header class="cmdk-head">
+        <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+          <circle cx="7" cy="7" r="5" stroke="currentColor" stroke-width="1.5"/>
+          <path d="M11 11l3 3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+        <input id="cmdk-input" type="text" placeholder="Search sections, projects, models, skills…" autocomplete="off" spellcheck="false" />
+        <kbd class="cmdk-esc">esc</kbd>
+      </header>
+      <ul class="cmdk-list" id="cmdk-list" role="listbox"></ul>
+      <footer class="cmdk-foot">
+        <span><kbd>↑</kbd><kbd>↓</kbd> navigate</span>
+        <span><kbd>↵</kbd> open</span>
+        <span><kbd>esc</kbd> close</span>
+      </footer>
+    </div>
+  </div>
 
   <footer class="site-footer">
     <div class="footer-inner">
